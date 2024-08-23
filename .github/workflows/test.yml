@@ -4,7 +4,8 @@ on: workflow_call
 
 jobs:
   workflow_call_job:
-    name: 
+    runs-on: ubuntu-latest
+    name: Workflow Call Job
     if: github.event.pull_request.draft == false
     steps:
       - name: Echo
