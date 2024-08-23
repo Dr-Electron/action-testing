@@ -1,30 +1,12 @@
-on: pull_request
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
-  job-zero:
-    name: Job 0
-    runs-on: ubuntu-latest
-    outputs:
-      isTrue: ${{ 'false' }}
-    steps:
-      - name: Test
-        run: echo "Test"
+  test: 
+    uses: ./.github/workflows/test.yml
 
-  job-one:
-    name: Job 1
-    needs: job-zero
-    if: ${{ needs.job-zero.outputs.isTrue == 'true' }}
-    runs-on: ubuntu-latest
+  test-2:
     steps:
-      - name: Run Job 1
-        run: echo "Run Job 1"
-
-  job-two:
-    needs: job-one
-    name: job-two
-    runs-on: ubuntu-latest
-    if: ${{ always() }}
-    steps:
-      - name: Run Job 2
-        run: |
-          echo 'Result: ${{toJSON(needs.job-one.result)}}'
+      - name: Echo
+        run: echo "Hello, world!"
